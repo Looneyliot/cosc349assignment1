@@ -42,7 +42,8 @@ Vagrant.configure("2") do |config|
   #Configuring the database 
   config.vm.define "dbserver" do |dbserver|
     dbserver.vm.hostname = "dbserver"
-    # Create a private network IP address to communicate with other VMs
+    # Set up a private network 192.168.56.12 that the VMs will use to communicate
+    # with each other. 
     dbserver.vm.network "private_network", ip: "192.168.56.12"
 
      # The following line is for the CS Labs
@@ -50,6 +51,31 @@ Vagrant.configure("2") do |config|
     
     # Run MySQL startup script 
     dbserver.vm.provision "shell", path: "databasesetup.sh"
+    
+  end
+
+  # Configuring the admin webserver
+  config.vm.define "adminserver" do |adminserver|
+    adminserver.vm.hostname = "adminserver"
+    
+    # Port forwarding. Host can reach the webserver at 127.0.0.1:8081, 
+    # request will reach webserver's port 80.
+    adminserver.vm.network "forwarded_port", guest: 80, host: 8081, host_ip: "127.0.0.1"
+    
+    # Set up a private network 192.168.56.12 that the VMs will use to communicate
+    # with each other. 
+    adminserver.vm.network "private_network", ip: "192.168.56.13"
+
+     # The following line is for the CS Labs
+    adminserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
+
+    # Provision this webserver 
+    adminserver.vm.provision "shell", inline: <<-SHELL
+      apt-get update
+      #Install apache2 webserver 
+      apt-get install -y nginx php php-fpm php-mysql      
+
+    SHELL
     
   end
 
