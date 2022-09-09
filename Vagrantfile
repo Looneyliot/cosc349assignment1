@@ -13,7 +13,7 @@ Vagrant.configure("2") do |config|
   #I have used this box in the past, so all 3 vms will use this box.
   config.vm.box = "ubuntu/focal64"
 
-  #configuring the webserver
+  #Configuring the webserver
   config.vm.define "webserver" do |webserver|
     webserver.vm.hostname = "webserver"
     
@@ -38,6 +38,21 @@ Vagrant.configure("2") do |config|
     SHELL
  
   end
+
+  #Configuring the database 
+  config.vm.define "dbserver" do |dbserver|
+    dbserver.vm.hostname = "dbserver"
+    # Create a private network IP address to communicate with other VMs
+    dbserver.vm.network "private_network", ip: "192.168.56.12"
+
+     # The following line is for the CS Labs
+    dbserver.vm.synced_folder ".", "/vagrant", owner: "vagrant", group: "vagrant", mount_options: ["dmode=775,fmode=777"]
+    
+    # Run MySQL startup script 
+    dbserver.vm.provision "shell", path: "databasesetup.sh"
+    
+  end
+
 
 
 end
