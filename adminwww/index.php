@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<head><title>Webserver test page</title>
+<head><title>ADMIN page</title>
 <style>
 th { text-align: left; }
 
@@ -18,9 +18,9 @@ th, td {
 <body>
 <h1>Wholesome Activities:</h1>
 
-<p><a href="generate-activity.php">Generate a Wholesome Activity!</a></p>
+<p><a href="http://192.168.56.11">Go to regular website.</a></p>
 
-<p><a href="add-activity.php">Add a Wholesome Activity!</a></p>
+<p><a href="db-interact.php">Modify the database.</a></p>
 
 <p><a href="show-activities.php">See all Wholesome Activities!</a></p>
 
