@@ -52,6 +52,7 @@ while ($record = mysqli_fetch_assoc($result)){
 
 
 </table>
-<p><a href="generate-activity.php">Go to Generate Wholesome Activity page!</a></p>
+<p><a href="generate-activity.php">Generate a Wholesome Activity!</a></p>
+<p><a href="add-activity.php">Add a Wholesome Activity!</a></p>
 </body>
 </html>

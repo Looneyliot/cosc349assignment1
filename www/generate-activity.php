@@ -16,26 +16,15 @@ th, td {
 </head>
 
 <body>
-<h1>All activities with their wholesomeness ratings</h1>
-
-<p>Insert activity:</p>
+<h1>Generate a Wholesome Activity!</h1>
 
 <div>
       
     <form action ="" method = "post">
-          <label>Activity to add</label>
-          <input type = "text" name="Activity" maxlength="30"/>
-          <input type = "submit" name="submit" value = "Submit" />
+          <input type = "submit" name="submit" value = "Generate" />
+          
     </form>
-
-    </div>
-<br></br>
-
-
 <?php
-if (isset($_POST['submit'])){
-  $newActivity = $_POST['Activity'];
-}
 
 $DB_HOST = '192.168.56.12';
 $DB_USER = 'root';
@@ -49,22 +38,23 @@ if ( mysqli_connect_errno() ) {
 }
 
 
-if($newActivity != ""){
-$query = "INSERT INTO activities VALUES ('$newActivity', 0, 0, 0)";
+//$query = "SELECT * FROM activities ORDER BY RAND() LIMIT 1";
+$query = 'SELECT activity FROM activities ORDER BY RAND() LIMIT 1';
+$result = mysqli_query($connect, $query);
+if(mysqli_num_rows($result)<1){
+  echo 'empty';
+}
 
-if ($connect->query($query) === TRUE) {
-  echo "New record created successfully";
-} else {
-  echo "Error: " . $query . "<br>" . $connect->error;
+while ($record = mysqli_fetch_assoc($result)){
+  echo "<p>".$record["activity"]."</p>\n";
 }
-}
-//$query = 'INSERT INTO activities VALUES ('Climb a tree', 11, 3)';
-//$result = mysqli_query($connect, $query);
 
 
 ?>
+</div>
 
-<p><a href="test-database.php">See all Wholesome Activities!</a></p>
+<p><a href="add-activity.php">Add a Wholesome Activity!</a></p>
+<p><a href="show-activities.php">See all Wholesome Activities!</a></p>
 
 </table>
 </body>

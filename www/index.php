@@ -18,9 +18,11 @@ th, td {
 <body>
 <h1>Wholesome Activities:</h1>
 
-<p><a href="generate-activity.php">Go to Generate Wholesome Activity page!</a></p>
+<p><a href="generate-activity.php">Generate a Wholesome Activity!</a></p>
 
-<p><a href="test-database.php">See all Wholesome Activities!</a></p>
+<p><a href="add-activity.php">Add a Wholesome Activity!</a></p>
+
+<p><a href="show-activities.php">See all Wholesome Activities!</a></p>
 
 </body>
 </html>
