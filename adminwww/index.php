@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<head><title>ADMIN page</title>
+<head><title>ADMIN Login</title>
 <style>
 th { text-align: left; }
 
@@ -16,13 +16,16 @@ th, td {
 </head>
 
 <body>
-<h1>Wholesome Activities:</h1>
+<h1>Wholesome Activities - Admin Access:</h1>
+
+<form action ="login.php" method = "post">
+          <label>Username:</label>
+          <input type = "text" name="username" maxlength="10" id="username" required>
+          <label>Password:</label>
+          <input type = "password" name="password" maxlength="10" id="password" required/>
+          <input type = "submit" name="submit" value = "Login" />
+    </form>
 
 <p><a href="http://192.168.56.11">Go to regular website.</a></p>
-
-<p><a href="db-interact.php">Modify the database.</a></p>
-
-<p><a href="show-activities.php">See all Wholesome Activities!</a></p>
-
 </body>
 </html>

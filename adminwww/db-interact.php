@@ -1,5 +1,16 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
+
+<?php
+// We need to use sessions, so you should always start sessions using the below code.
+session_start();
+// If the user is not logged in redirect to the login page...
+if (!isset($_SESSION['loggedin'])) {
+    header('Location: index.php');
+    exit;
+}
+?>
+
 <head><title>DELETE FROM MYSQL DATABASE:</title>
 <p>You can delete content from the database by typing MYSQL commands into the textbox and pressing the "Run Query" button. </p>
 <p><a href="https://www.w3schools.com/mysql/mysql_delete.asp">Here is a guide to deleting in MYSQL.</a></p>
@@ -99,4 +110,5 @@ while ($record = mysqli_fetch_assoc($result)){
 
 </table>
 </body>
+<?php include 'footer.php' ?>
 </html>
