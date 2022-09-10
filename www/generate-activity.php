@@ -1,6 +1,6 @@
 <!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML//EN">
 <html>
-<head><title>All activities</title>
+<head><title>Generate an activity!</title>
 <style>
 th { text-align: left; }
 
@@ -18,12 +18,25 @@ th, td {
 <body>
 <h1>All activities with their wholesomeness ratings</h1>
 
-<p>Showing activities:</p>
+<p>Insert activity:</p>
 
-<table border="1">
-<tr><th>Activity</th><th>Rating</th><th>Times Rated</th><th>Average Rating</th></tr>
+<div>
+      
+    <form action ="" method = "post">
+          <label>Activity to add</label>
+          <input type = "text" name="Activity" maxlength="30"/>
+          <input type = "submit" name="submit" value = "Submit" />
+    </form>
+
+    </div>
+<br></br>
+
 
 <?php
+if (isset($_POST['submit'])){
+  $newActivity = $_POST['Activity'];
+}
+
 $DB_HOST = '192.168.56.12';
 $DB_USER = 'root';
 $DB_PWD = 'root';
@@ -35,23 +48,24 @@ if ( mysqli_connect_errno() ) {
 	exit('Failed to connect to MySQL: ' . mysqli_connect_error());
 }
 
-$query = 'SELECT * FROM activities';
-$result = mysqli_query($connect, $query);
-if(mysqli_num_rows($result)<1){
-  echo 'empty';
-}
 
-while ($record = mysqli_fetch_assoc($result)){
-  echo "<tr><td>".$record["activity"]."</td><td>".$record["rating"]."</td><td>".$record["timesRated"]."</td><td>".$record["averageRating"]."</td></tr>\n";
-}
+if($newActivity != ""){
+$query = "INSERT INTO activities VALUES ('$newActivity', 0, 0, 0)";
 
+if ($connect->query($query) === TRUE) {
+  echo "New record created successfully";
+} else {
+  echo "Error: " . $query . "<br>" . $connect->error;
+}
+}
 //$query = 'INSERT INTO activities VALUES ('Climb a tree', 11, 3)';
 //$result = mysqli_query($connect, $query);
+
+
 ?>
 
-
+<p><a href="test-database.php">See all Wholesome Activities!</a></p>
 
 </table>
-<p><a href="generate-activity.php">Go to Generate Wholesome Activity page!</a></p>
 </body>
 </html>
