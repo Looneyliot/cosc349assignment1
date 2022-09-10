@@ -4,10 +4,10 @@
 apt-get update
       
 # Define some shell variables needed for database.
-export DBHOST='localhost'
-export DBNAME='webdatabase'
-export DBUSER='root'
-export DBPASSWD='root'
+export DB_HOST='localhost'
+export DB_NAME='webdatabase'
+export DB_USER='root'
+export DB_PWD='root'
 
 export MYSQL_PWD='root'
 
@@ -20,18 +20,18 @@ apt-get -y install mysql-server
 
 
 # First create a database.
-echo "CREATE DATABASE $DBNAME;" | mysql
+echo "CREATE DATABASE $DB_NAME;" | mysql
 
 # Then create a database user with the given password.
-echo "CREATE USER '$DBUSER'@'%' IDENTIFIED BY '$DBPASSWD';" | mysql
+echo "CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PWD';" | mysql
 
 # Grant all permissions to the database user 
-echo "GRANT ALL PRIVILEGES ON $DBUSER.* TO '$DBUSER'@'%'" | mysql
+echo "GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%'" | mysql
 
-
+export MYSQL_PWD='root'
 
 # Run a sql script to setup the database
-cat "setup-database.sql" | mysql -u $DBUSER $DBNAME
+cat "/vagrant/setup-database.sql" | mysql -u $DB_USER $DB_NAME
 
 # Allow access to database from outside hosts.
 sed -i'' -e '/bind-address/s/127.0.0.1/0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf
